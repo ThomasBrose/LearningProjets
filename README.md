@@ -1,7 +1,39 @@
-# LearningProjets
-My learning projets
+# LearningProjets - Inventory Manager
 
-Release V0.0.1
-Release Date 27/02/2025
+A lightweight browser-based inventory management web app for a production company with **Flowers** and **Plants** zones.
 
-1. I am learning how to use Git (and git-flow) and GitHub on macOS.
+## Features
+
+- Product catalog with categories:
+  - Raw Material
+  - Accessory
+  - Merchandise
+  - Furniture
+  - Office Equipment
+  - Consumable
+- Inventory movement workflows:
+  - purchasing from supplier
+  - receiving
+  - storage transfer
+  - production (consume/produce)
+  - delivery
+  - internal use
+  - selling
+  - disposal for waste
+  - return to customer
+- Worker roles on each movement:
+  - Administrator
+  - Manager
+  - Production
+  - Delivery Driver
+  - Dispatcher
+- Dashboard KPI cards and low-stock alerts.
+- Local persistence with `localStorage`.
+
+## Run locally
+
+Open `index.html` in your browser.
+
+## Notes
+
+This app is client-side only and intended as a practical starter for a fuller internal inventory system.
