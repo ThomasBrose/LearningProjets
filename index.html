@@ -1,18 +1,179 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-   <title>Mon Titre</title>
-   <link rel="stylesheet" type="text/css" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Company Inventory Manager</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-   <h1>Un super titre</h1>
-   <div style="font-size: x-large;">
-      <p>Ceci est un paragraphe</p>
-      <a href="https://www.lecampus.beer">Le Campus</a>
-      <p>Autre paragraphe dans le div</p>
-   </div>
-   <section>
-      <p>Le texte dans ma section</p>
-   </section>
+  <header class="topbar">
+    <div>
+      <h1>Inventory Manager</h1>
+      <p>Production site inventory for Flowers and Plants zones.</p>
+    </div>
+    <button id="resetData" class="danger">Reset demo data</button>
+  </header>
+
+  <main class="layout">
+    <section class="card">
+      <h2>Add inventory item</h2>
+      <form id="itemForm" class="grid-form">
+        <label>
+          Product name
+          <input required name="name" placeholder="e.g., Rose stem bundle" />
+        </label>
+        <label>
+          SKU
+          <input required name="sku" placeholder="e.g., ROS-001" />
+        </label>
+        <label>
+          Type
+          <select name="type" required>
+            <option value="Raw Material">Raw Material</option>
+            <option value="Accessory">Accessory</option>
+            <option value="Merchandise">Merchandise</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Office Equipment">Office Equipment</option>
+            <option value="Consumable">Consumable</option>
+          </select>
+        </label>
+        <label>
+          Zone
+          <select name="zone" required>
+            <option value="Flowers">Flowers</option>
+            <option value="Plants">Plants</option>
+            <option value="Warehouse">Warehouse</option>
+          </select>
+        </label>
+        <label>
+          Supplier
+          <input name="supplier" placeholder="e.g., Bloom Source" />
+        </label>
+        <label>
+          Minimum stock
+          <input type="number" min="0" step="1" name="minStock" value="0" required />
+        </label>
+        <button type="submit">Create product</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Register stock flow</h2>
+      <form id="transactionForm" class="grid-form">
+        <label>
+          Date
+          <input type="date" name="date" required />
+        </label>
+        <label>
+          Product
+          <select name="productId" id="productSelect" required></select>
+        </label>
+        <label>
+          Flow
+          <select name="flow" id="flowSelect" required>
+            <option value="purchasing">Purchasing from supplier</option>
+            <option value="receiving">Receiving product</option>
+            <option value="storage">Storage transfer</option>
+            <option value="production">Production</option>
+            <option value="delivery">Delivery</option>
+            <option value="internal_use">Internal use</option>
+            <option value="selling">Selling a product</option>
+            <option value="disposal_waste">Disposal for waste</option>
+            <option value="return_customer">Return to customer</option>
+          </select>
+        </label>
+        <label>
+          Quantity
+          <input type="number" name="quantity" min="1" step="1" value="1" required />
+        </label>
+        <label>
+          Main zone
+          <select name="zone" id="zoneSelect" required>
+            <option value="Flowers">Flowers</option>
+            <option value="Plants">Plants</option>
+            <option value="Warehouse">Warehouse</option>
+            <option value="Transit">Transit</option>
+          </select>
+        </label>
+        <label id="secondaryZoneWrap" class="hidden">
+          Destination zone
+          <select name="secondaryZone" id="secondaryZone">
+            <option value="Flowers">Flowers</option>
+            <option value="Plants">Plants</option>
+            <option value="Warehouse">Warehouse</option>
+          </select>
+        </label>
+        <label id="productionModeWrap" class="hidden">
+          Production mode
+          <select name="productionMode" id="productionMode">
+            <option value="consume">Consume components</option>
+            <option value="produce">Produce finished goods</option>
+          </select>
+        </label>
+        <label>
+          Worker role
+          <select name="role" required>
+            <option value="Administrator">Administrator</option>
+            <option value="Manager">Manager</option>
+            <option value="Production">Production</option>
+            <option value="Delivery Driver">Delivery Driver</option>
+            <option value="Dispatcher">Dispatcher</option>
+          </select>
+        </label>
+        <label class="full-width">
+          Notes
+          <input name="notes" placeholder="order reference, quality info, vehicle, etc." />
+        </label>
+        <button type="submit">Record movement</button>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>Inventory dashboard</h2>
+      <div id="kpis" class="kpis"></div>
+      <table>
+        <thead>
+          <tr>
+            <th>SKU</th>
+            <th>Product</th>
+            <th>Type</th>
+            <th>Zone</th>
+            <th>On hand</th>
+            <th>Min</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="inventoryBody"></tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>Latest movements</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Flow</th>
+            <th>Product</th>
+            <th>Qty</th>
+            <th>Zone</th>
+            <th>Role</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="transactionBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <template id="kpiTemplate">
+    <article class="kpi">
+      <h3></h3>
+      <p></p>
+    </article>
+  </template>
+
+  <script src="app.js"></script>
 </body>
 </html>
